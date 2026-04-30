@@ -1,3 +1,65 @@
+## TODO / Project Status
+
+### Current Pipeline
+
+目前已经打通的 PyTorch 主线：
+
+```text
+Allen/Billeh SONATA data
+-> convert2pkl.py
+-> Chen-compatible network_dat.pkl / input_dat.pkl
+-> load_sparse_torch.py
+-> PyTorch sparse tensors
+-> BillehColumnTorch
+-> readout classifier
+-> single-GPU training
+-> DDP multi-GPU training
+```
+
+### Completed
+
+- Converted Allen/Billeh SONATA network files into the legacy Chen-compatible pickle format.
+- Loaded recurrent and input connectivity as PyTorch sparse tensors.
+- Implemented and validated `BillehColumnTorch`.
+- Verified CUDA forward pass on:
+  - small model: `1000` neurons
+  - full core model: `51978` neurons, `14M+` recurrent synapses
+- Added readout classifier and single-GPU training loop.
+- Added DDP multi-GPU training support.
+- Verified training with synthetic toy tasks.
+
+### Missing Original Data Files
+
+The following files from the original TensorFlow project are currently unavailable:
+
+```text
+alternate_small_stimuli.pkl
+many_small_stimuli.pkl
+EA_LGN.h5
+lgn_full_col_cells_3.csv
+garrett_firing_rates.pkl
+additive_noise.mat
+```
+
+Because of these missing files, the original task pipelines cannot yet be reproduced directly.
+
+### Remaining Work
+
+- Port the original `lgn.py` module to PyTorch.
+- Reproduce the original `multi_train.py` training pipeline in PyTorch.
+- Rebuild or replace the missing stimulus / LGN data pipeline.
+- Run the original benchmark tasks:
+  - Garrett task
+  - evidence accumulation
+  - VCD grating
+  - orientation difference
+  - 10-class classification
+
+### Next Recommended Step
+
+Before fully reproducing the original TensorFlow pipeline, add a real accessible dataset, such as MNIST or CIFAR, and convert it into `[batch, time, 17400]` input format to validate end-to-end PyTorch training on real labels.
+```
+
 # Code for papers:
 - Chen, Guozhang, Franz Scherr, and Wolfgang Maass. “[A data-based large-scale model for primary visual cortex enables brain-like robust and versatile visual processing.](https://www.science.org/doi/full/10.1126/sciadv.abq7592)” Science Advances 8.44 (2022): eabq7592.
 - Chen, Guozhang, Franz Scherr, and Wolfgang Maass. “[Data-based large-scale models provide a window into the organization of cortical computations.](https://www.biorxiv.org/content/10.1101/2023.04.28.538662v3.abstract)” bioRxiv (2023): 2023-04.
