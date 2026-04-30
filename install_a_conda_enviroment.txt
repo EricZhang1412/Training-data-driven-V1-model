@@ -1,7 +1,15 @@
-conda create -n tf python
-conda activate tf
-conda install cudnn
-pip install tensorflow-gpu
-pip install matplotlib pandas tqdm numpy scipy
-pip install https://github.com/IGITUGraz/SimManager/archive/v0.8.3.zip
-pip install git+git://github.com/franzscherr/bmtk@f_dev
+Install uv first (one-time):
+  curl -LsSf https://astral.sh/uv/install.sh | sh
+
+Create and use the project env (CUDA 12.8 / PyTorch 2.10+):
+  cd /data2/users/zhangjy/Training-data-driven-V1-model
+  uv venv --python 3.11
+  mkdir -p 3rdparty
+  git clone https://github.com/IGITUGraz/SimManager.git 3rdparty/SimManager
+  (cd 3rdparty/SimManager && git checkout v0.8.3)
+  git clone https://github.com/franzscherr/bmtk.git 3rdparty/bmtk
+  (cd 3rdparty/bmtk && git checkout f_dev)
+  uv sync
+
+Activate (optional, for running scripts directly):
+  source .venv/bin/activate

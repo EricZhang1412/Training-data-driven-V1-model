@@ -1,0 +1,32 @@
+[project]
+name = "LGN-model-v1"
+version = "0.0.0"
+readme = "README.md"
+requires-python = ">=3.10,<3.13"
+dependencies = [
+  "matplotlib",
+  "numpy",
+  "pandas",
+  "scipy",
+  "tqdm",
+  "torch>=2.10.0",
+  "torchaudio",
+  "torchvision",
+  "simmanager",
+  "bmtk",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+simmanager = { path = "3rdparty/SimManager", editable = true }
+bmtk = { path = "3rdparty/bmtk", editable = true }
+torch = { index = "pytorch-cu128" }
+torchvision = { index = "pytorch-cu128" }
+torchaudio = { index = "pytorch-cu128" }
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
